@@ -34,8 +34,86 @@
 	<script src="assets/js/main.js"></script>
 	<script src="https://unpkg.com/scrollreveal"></script>
 
+
+
+
+<script src="assets/handle/js/popper.min.js"></script>
+<script src="assets/handle/js/bootstrap.min.js"></script>
+<script src="assets/handle/js/select2.min.js"></script>
+<!-- BEGIN GLOBAL MANDATORY STYLES -->
+<link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
+<link href="assets/handle/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="assets/handle/css/main.css" rel="stylesheet" type="text/css" />
+<!-- END GLOBAL MANDATORY STYLES -->
+<link href="assets/handle/css/select2.min.css" rel="stylesheet" type="text/css"/>
+<link href="assets/handle/css/chatBot.css" rel="stylesheet" type="text/css"/>
+<link href="assets/handle/css/timeline.css" rel="stylesheet" type="text/css"/>
+
+
+
 </head>
 <body>
   <app-root></app-root>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-83834093-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+  <script>
+	$(document).ready(function(){
+		$(".select2_el").select2({
+		});
+	});
+	</script>
+<script>
+$(document).ready(function () {
+	//Toggle fullscreen
+	$(".chat-bot-icon").click(function (e) {
+		$(this).children('img').toggleClass('hide');
+		$(this).children('svg').toggleClass('animate');
+		$('.chat-screen').toggleClass('show-chat');
+	});
+	$('.chat-mail button').click(function () {
+		$('.chat-mail').addClass('hide');
+		$('.chat-body').removeClass('hide');
+		$('.chat-input').removeClass('hide');
+		$('.chat-header-option').removeClass('hide');
+	});
+	$('.end-chat').click(function () {
+		$('.chat-body').addClass('hide');
+		$('.chat-input').addClass('hide');
+		$('.chat-session-end').removeClass('hide');
+		$('.chat-header-option').addClass('hide');
+	});
+});
+
+</script>
+<script>
+	var socket = io();
+
+	var messages = document.getElementById('messages');
+	var form = document.getElementById('form');
+	var input = document.getElementById('input');
+
+	form.addEventListener('submit', function(e) {
+	  e.preventDefault();
+	  if (input.value) {
+		socket.emit('chat message', input.value);
+		input.value = '';
+	  }
+	});
+
+	socket.on('chat message', function(msg) {
+	  var item = document.createElement('li');
+	  item.textContent = msg;
+	  messages.appendChild(item);
+	  window.scrollTo(0, document.body.scrollHeight);
+	});
+  </script>
 </body>
 </html>

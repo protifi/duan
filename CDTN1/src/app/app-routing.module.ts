@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CartComponent } from './Component/cart/cart.component';
+import { ChatboxComponent } from './Component/chatbox/chatbox.component';
 import { CheckoutComponent } from './Component/checkout/checkout.component';
 import { ContactComponent } from './Component/contact/contact.component';
 import { IndexComponent } from './Component/index/index.component';
@@ -25,6 +26,9 @@ const routes: Routes = [
   },
   {
     path:"view",component:ViewComponent
+  },
+  {
+    path:"chat",component:ChatboxComponent
   }
 ];
 
